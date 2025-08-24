@@ -1,5 +1,17 @@
 {
+  "name": "medusa-plugin-reviews",
+  "version": "1.0.0",
+  "description": "A simple product review plugin for Medusa.js",
+  "main": "dist/index.js",
+  "author": "Your Name",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
   "devDependencies": {
-    "@medusajs/types": "^2.9.0"
+    "@medusajs/medusa": "^2.9.0",
+    "@medusajs/types": "^2.9.0",
+    "typeorm": "^0.3.26",
+    "typescript": "^5.9.2"
   }
 }
