@@ -6,7 +6,6 @@ import {
     ManyToOne,
     PrimaryColumn,
   } from "typeorm"
-  // CHANGE: Import Product from the new package
   import { Product } from "@medusajs/product/dist/models"
   import { generateEntityId } from "@medusajs/utils"
   
@@ -19,7 +18,7 @@ import {
     product_id!: string // ADD '!'
   
     @ManyToOne(() => Product)
-    product: Product
+    product: typeof Product
   
     @Column()
     customer_id!: string // ADD '!'

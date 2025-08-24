@@ -1,12 +1,11 @@
-import { AbstractService } from "@medusajs/framework"
+import { ITransactionBaseService } from "@medusajs/types"
 import { ProductReview } from "../models/product-review"
 import { EntityManager } from "typeorm"
 
-class ProductReviewService extends AbstractService {
+class ProductReviewService implements ITransactionBaseService {
   protected readonly manager_: EntityManager
 
-  constructor({ manager }) {
-    super(arguments[0])
+  constructor({ manager }: { manager: EntityManager }) {
     this.manager_ = manager
   }
 
