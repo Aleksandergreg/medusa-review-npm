@@ -6,39 +6,35 @@ import {
     ManyToOne,
     PrimaryColumn,
   } from "typeorm"
-  import { Product } from "@medusajs/medusa/dist/models"
+  // CHANGE: Import Product from the new package
+  import { Product } from "@medusajs/product/dist/models"
   import { generateEntityId } from "@medusajs/utils"
   
   @Entity()
   export class ProductReview extends BaseEntity {
     @PrimaryColumn()
-    id: string
+    id!: string // ADD '!'
   
     @Column()
-    product_id: string
+    product_id!: string // ADD '!'
   
     @ManyToOne(() => Product)
     product: Product
   
     @Column()
-    customer_id: string
-    
-    // We'll leave the customer relation out for simplicity, 
-    // but you could add a @ManyToOne relation here.
+    customer_id!: string // ADD '!'
   
     @Column({ type: "int" })
-    rating: number
+    rating!: number // ADD '!'
   
     @Column({ type: "text" })
-    content: string
+    content!: string // ADD '!'
   
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
-    created_at: Date
+    created_at!: Date // ADD '!'
   
     @BeforeInsert()
     private beforeInsert(): void {
       this.id = generateEntityId(this.id, "rev")
     }
   }
-
-  export default ProductReview;

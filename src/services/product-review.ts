@@ -1,10 +1,17 @@
-// src/services/product-review.ts
-import { TransactionBaseService } from "@medusajs/medusa"
+import { AbstractService } from "@medusajs/framework"
 import { ProductReview } from "../models/product-review"
+import { EntityManager } from "typeorm"
 
-class ProductReviewService extends TransactionBaseService {
+class ProductReviewService extends AbstractService {
+  protected readonly manager_: EntityManager
+
+  constructor({ manager }) {
+    super(arguments[0])
+    this.manager_ = manager
+  }
+
   async listByProduct(productId: string) {
-    const reviewRepo = this.activeManager_.getRepository(ProductReview)
+    const reviewRepo = this.manager_.getRepository(ProductReview)
     return await reviewRepo.find({
       where: { product_id: productId },
       order: { created_at: "DESC" },
@@ -21,7 +28,7 @@ class ProductReviewService extends TransactionBaseService {
       throw new Error("Rating must be between 1 and 5.")
     }
 
-    const reviewRepo = this.activeManager_.getRepository(ProductReview)
+    const reviewRepo = this.manager_.getRepository(ProductReview)
     const newReview = reviewRepo.create({
       product_id: productId,
       customer_id: customerId,

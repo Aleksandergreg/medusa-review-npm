@@ -9,7 +9,9 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "@medusajs/framework": "^2.9.0",
     "@medusajs/medusa": "^2.9.0",
+    "@medusajs/product": "^2.9.0",
     "@medusajs/types": "^2.9.0",
     "typeorm": "^0.3.26",
     "typescript": "^5.9.2"
