@@ -1,42 +1,42 @@
-import { ITransactionBaseService } from "@medusajs/types"
-import { ProductReview } from "../models/product-review.js"
-import { EntityManager } from "typeorm"
+import { ProductReview } from "../models/product-review.js";
+import { EntityManager } from "@mikro-orm/core";
 
-class ProductReviewService implements ITransactionBaseService {
-  protected readonly manager_: EntityManager
+export default class ProductReviewService {
+  protected readonly manager_: EntityManager;
 
   constructor({ manager }: { manager: EntityManager }) {
-    this.manager_ = manager
+    this.manager_ = manager;
   }
 
-  async listByProduct(productId: string) {
-    const reviewRepo = this.manager_.getRepository(ProductReview)
-    return await reviewRepo.find({
-      where: { product_id: productId },
-      order: { created_at: "DESC" },
-    })
-  }
-
-  async create(
-    productId: string,
-    customerId: string,
-    rating: number,
-    content: string
-  ) {
-    if (rating < 1 || rating > 5) {
+  async create(data: {
+    product_id: string;
+    customer_id: string;
+    rating: number;
+    content: string;
+  }): Promise<ProductReview> {
+    if (data.rating < 1 || data.rating > 5) {
       throw new Error("Rating must be between 1 and 5.")
     }
 
-    const reviewRepo = this.manager_.getRepository(ProductReview)
-    const newReview = reviewRepo.create({
-      product_id: productId,
-      customer_id: customerId,
-      rating,
-      content,
-    })
+    const now = new Date();
+    const reviewData = {
+      ...data,
+      created_at: now,
+      updated_at: now,
+    };
 
-    return await reviewRepo.save(newReview)
+    const review = this.manager_.create(ProductReview, reviewData);
+    await this.manager_.persistAndFlush(review);
+    return review;
+  }
+
+  async list(selector: Record<string, unknown>): Promise<ProductReview[]> {
+    return await this.manager_.find(ProductReview, selector);
+  }
+
+  async listByProduct(productId: string): Promise<ProductReview[]> {
+    return await this.manager_.find(ProductReview, { product_id: productId }, {
+      orderBy: { created_at: 'DESC' }
+    });
   }
 }
-
-export default ProductReviewService

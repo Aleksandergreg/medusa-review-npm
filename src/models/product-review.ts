@@ -1,35 +1,45 @@
 import {
-    BaseEntity,
-    BeforeInsert,
-    Column,
-    Entity,
-    PrimaryColumn,
-  } from "typeorm"
-  import { generateEntityId } from "@medusajs/utils"
-  
-  @Entity()
-  export class ProductReview extends BaseEntity {
-    @PrimaryColumn()
-    id!: string
-  
-    @Column()
-    product_id!: string
-  
-  
-    @Column()
-    customer_id!: string
-  
-    @Column({ type: "int" })
-    rating!: number
-  
-    @Column({ type: "text" })
-    content!: string
-  
-    @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
-    created_at!: Date
-  
-    @BeforeInsert()
-    private beforeInsert(): void {
-      this.id = generateEntityId(this.id, "rev")
-    }
+  Entity,
+  PrimaryKey,
+  Property,
+  OnInit,
+} from "@mikro-orm/core";
+import { generateEntityId } from "@medusajs/utils";
+
+@Entity()
+export class ProductReview {
+  @PrimaryKey({ columnType: "text" })
+  id!: string;
+
+  @Property({ columnType: "text" })
+  product_id!: string;
+
+  @Property({ columnType: "text" })
+  customer_id!: string;
+
+  @Property({ columnType: "number" })
+  rating!: number;
+
+  @Property({ columnType: "text" })
+  content!: string;
+
+  @Property({
+    onCreate: () => new Date(),
+    columnType: "timestamptz",
+    defaultRaw: "now()",
+  })
+  created_at: Date = new Date();
+
+  @Property({
+    onCreate: () => new Date(),
+    onUpdate: () => new Date(),
+    columnType: "timestamptz",
+    defaultRaw: "now()",
+  })
+  updated_at: Date = new Date();
+
+  @OnInit()
+  onInit() {
+    this.id = generateEntityId(this.id, "prodrev");
   }
+}

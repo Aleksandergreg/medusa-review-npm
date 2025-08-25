@@ -1,32 +1,12 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm"
+import { Migration } from "@mikro-orm/migrations"
 
-export class ProductReviewCreate1724429983984 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(
-      new Table({
-        name: "product_review",
-        columns: [
-          { name: "id", type: "varchar", isPrimary: true },
-          { name: "product_id", type: "varchar" },
-          { name: "customer_id", type: "varchar" },
-          { name: "rating", type: "int" },
-          { name: "content", type: "text" },
-          { name: "created_at", type: "timestamptz", default: "now()" },
-        ],
-        foreignKeys: [
-          {
-            columnNames: ["product_id"],
-            referencedColumnNames: ["id"],
-            referencedTableName: "product",
-            onDelete: "CASCADE",
-          },
-        ],
-      }),
-      true
+export class ProductReviewCreate1755957549768 extends Migration {
+  async up(): Promise<void> {
+    this.addSql(
+      'create table "product_review" ("id" text not null, "product_id" text not null, "customer_id" text not null, "rating" int not null, "content" text not null, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), constraint "product_review_pkey" primary key ("id"));'
     )
-  }
-
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("product_review")
+    this.addSql(
+      'alter table "product_review" add constraint "product_review_product_id_foreign" foreign key ("product_id") references "product" ("id") on update cascade on delete cascade;'
+    )
   }
 }
