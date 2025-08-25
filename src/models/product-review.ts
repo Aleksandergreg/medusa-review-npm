@@ -18,7 +18,7 @@ import {
     product_id!: string // ADD '!'
   
     @ManyToOne(() => Product)
-    product: typeof Product
+    product: Product
   
     @Column()
     customer_id!: string // ADD '!'

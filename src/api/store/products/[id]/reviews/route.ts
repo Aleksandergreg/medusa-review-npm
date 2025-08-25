@@ -1,5 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
-import ProductReviewService from "../../../services/product-review";
+import ProductReviewService from "../../../../../services/product-review";
 
 interface AuthenticatedRequest extends MedusaRequest {
   actor_context: {
