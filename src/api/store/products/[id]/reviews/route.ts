@@ -1,6 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
-import ProductReviewService from "../../../../../services/product-review";
-
+import ProductReviewService from "../../../../../services/product-review.js";
 interface AuthenticatedRequest extends MedusaRequest {
   actor_context: {
     actor_id: string;

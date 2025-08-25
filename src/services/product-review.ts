@@ -1,5 +1,5 @@
 import { ITransactionBaseService } from "@medusajs/types"
-import { ProductReview } from "../models/product-review"
+import { ProductReview } from "../models/product-review.js"
 import { EntityManager } from "typeorm"
 
 class ProductReviewService implements ITransactionBaseService {

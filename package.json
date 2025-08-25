@@ -2,11 +2,16 @@
   "name": "medusa-plugin-reviews",
   "version": "1.0.0",
   "description": "A simple product review plugin for Medusa.js",
-  "main": "dist/index.js",
-  "author": "Aleksander Gregersen",
+  "author": "Aleksander",
   "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
   },
   "devDependencies": {
     "@medusajs/framework": "^2.9.0",
