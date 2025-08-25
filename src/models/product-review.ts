@@ -3,34 +3,30 @@ import {
     BeforeInsert,
     Column,
     Entity,
-    ManyToOne,
     PrimaryColumn,
   } from "typeorm"
-  import { Product } from "@medusajs/product/dist/models"
   import { generateEntityId } from "@medusajs/utils"
   
   @Entity()
   export class ProductReview extends BaseEntity {
     @PrimaryColumn()
-    id!: string // ADD '!'
+    id!: string
   
     @Column()
-    product_id!: string // ADD '!'
+    product_id!: string
   
-    @ManyToOne(() => Product)
-    product: Product
   
     @Column()
-    customer_id!: string // ADD '!'
+    customer_id!: string
   
     @Column({ type: "int" })
-    rating!: number // ADD '!'
+    rating!: number
   
     @Column({ type: "text" })
-    content!: string // ADD '!'
+    content!: string
   
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
-    created_at!: Date // ADD '!'
+    created_at!: Date
   
     @BeforeInsert()
     private beforeInsert(): void {
