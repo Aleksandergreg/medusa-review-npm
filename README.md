@@ -38,7 +38,7 @@ A simple and robust plugin for adding product review functionality to your Medus
 3.  **Run the database migration** to add the `product_review` table to your database. From your project's root, run:
 
     ```bash
-    npx medusa-dev db migrate
+    npx medusa db migrate
     ```
 
 Your Medusa backend is now equipped with the product reviews functionality!
