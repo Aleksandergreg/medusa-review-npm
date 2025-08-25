@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple product review plugin for Medusa.js",
   "main": "dist/index.js",
-  "author": "Your Name",
+  "author": "Aleksander Gregersen",
   "license": "MIT",
   "scripts": {
     "build": "tsc"
